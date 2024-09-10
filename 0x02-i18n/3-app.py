@@ -22,13 +22,13 @@ babel = Babel(app)
 
 
 @babel.localeselector
-def get_locale():
+def get_locale() -> str:
     '''a decorated function to retrieve the locale'''
     return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
 @app.route('/')
-def home():
+def home() -> str:
     '''a simplel page that displays a title and a header'''
 
     home_title = gettext("home_title")
