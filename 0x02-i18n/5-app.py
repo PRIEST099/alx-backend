@@ -55,6 +55,7 @@ def get_user() -> dict | None:
 
 @app.before_request
 def before_request() -> None:
+    """ storing logged in user id on every request """
     g.user = get_user()
 
 
