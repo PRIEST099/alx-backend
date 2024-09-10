@@ -2,8 +2,8 @@
 """a simple flask app initialized wwitha simple htmls file"""
 
 
-from flask import Flask, render_template
-from flask_babel import Babel
+from flask import Flask, render_template, request
+from flask_babel import Babel, _
 
 
 class Config():
@@ -18,14 +18,24 @@ app = Flask(__name__)
 app.config.from_object(Config)
 app.url_map.strict_slashes = False
 
-babel = Babel(app, )
+babel = Babel(app)
+
+
+@babel.localeselector
+def get_locale():
+    '''a decorated function to retrieve the locale'''
+
+    return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
 @app.route('/')
 def home():
     '''a simplel page that displays a title and a header'''
 
-    return render_template('1-index.html')
+    home_title = _("Urakaza neza kuri Holbelton")
+    home_header = _("Hello world!")
+
+    return render_template('3-index.html', home_title = home_title, home_header = home_header)
 
 
 if __name__ == '__main__':
